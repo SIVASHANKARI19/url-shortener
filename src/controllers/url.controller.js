@@ -1,5 +1,15 @@
 const prisma = require("../config/db");
-const { nanoid } = require("nanoid");
+const generateShortCode = (length = 6) => {
+  const chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+  let code = "";
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * chars.length);
+    code += chars[randomIndex];
+  }
+
+  return code;
+};
 const {
   ValidationError,
   NotFoundError,
@@ -40,7 +50,7 @@ const createShortUrl = async (req, res, next) => {
     let shortCode;
     let isUnique = false;
     while (!isUnique) {
-      shortCode = nanoid(6);
+      shortCode = generateShortCode(6);
       const exists = await prisma.url.findUnique({ where: { shortCode } });
       if (!exists) isUnique = true;
     }
