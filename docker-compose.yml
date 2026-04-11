@@ -55,6 +55,17 @@ services:
     command: >
       sh -c "npx prisma migrate deploy && node server.js"
 
+  frontend:
+    build:
+      context: ./frontend
+    container_name: urlshortener-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:3000
+    depends_on:
+      - app
+
 volumes:
   postgres_data:
   redis_data:
