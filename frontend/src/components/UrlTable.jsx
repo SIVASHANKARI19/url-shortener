@@ -62,7 +62,7 @@ function UrlRow({ url, onDelete, onUpdate }) {
     }
   }
 
-const shortUrl = `${import.meta.env.VITE_SERVER_URL}/${url.shortCode}`
+const shortUrl = `${import.meta.env.VITE_API_BASE_URL}/${url.shortCode}`
 
   return (
     <div className="card p-4 group animate-slide-up hover:border-ink-600 transition-colors">
